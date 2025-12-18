@@ -12,7 +12,7 @@ mod imp {
     use super::*;
 
     #[derive(CompositeTemplate, Default)]
-    #[template(resource = "/com/github/bootc_media_creator/ui/window.ui")]
+    #[template(resource = "/com/github/hanthor/Cobbler/ui/window.ui")]
     pub struct Window {
         #[template_child]
         pub content_stack: TemplateChild<gtk::Stack>,

@@ -8,11 +8,11 @@ mod widgets {
     pub mod device_list;
 }
 
-const APP_ID: &str = "com.github.bootc_media_creator";
+const APP_ID: &str = "com.github.hanthor.Cobbler";
 
 fn main() -> gtk::glib::ExitCode {
     env_logger::init();
-    gio::resources_register_include!("bootc_media_creator.gresource").expect("Failed to register resources.");
+    gio::resources_register_include!("cobbler.gresource").expect("Failed to register resources.");
 
     // Initialize GTK/Adwaita
     let app = adw::Application::builder()

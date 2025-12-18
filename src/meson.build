@@ -1,7 +1,16 @@
 pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
 gnome = import('gnome')
 
-gnome.compile_resources('cobbler',
+blueprints = custom_target('blueprints',
+  input: files(
+    'shortcuts-dialog.blp',
+    'ui/window.blp',
+  ),
+  output: '.',
+  command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
+)
+
+resources = gnome.compile_resources('cobbler',
   'cobbler.gresource.xml',
   gresource_bundle: true,
   install: true,
@@ -33,6 +42,7 @@ cargo_bin  = find_program('cargo')
 cargo_opt  = [ '--manifest-path', meson.project_source_root() / 'Cargo.toml' ]
 cargo_opt += [ '--target-dir', meson.project_build_root()  / 'src' ]
 cargo_env  = [ 'CARGO_HOME=' + meson.project_build_root()  / 'cargo-home' ]
+cargo_env += [ 'OUT_DIR=' + meson.project_build_root() / 'src' ]
 
 if get_option('buildtype') == 'release'
   cargo_opt += [ '--release' ]
@@ -49,6 +59,7 @@ cargo_build = custom_target(
   console: true,
   install: true,
   install_dir: get_option('bindir'),
+  depends: resources,
   command: [
     'env', cargo_env,
     cargo_bin, 'build',
@@ -56,12 +67,3 @@ cargo_build = custom_target(
   ]
 )
 
-blueprints = custom_target('blueprints',
-  input: files(
-    'shortcuts-dialog.blp',
-    'window.blp',
-    'ui/window.blp',
-  ),
-  output: '.',
-  command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
-)
