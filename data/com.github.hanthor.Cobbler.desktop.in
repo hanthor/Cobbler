@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=cobbler
+Exec=cobbler
+Icon=com.github.hanthor.Cobbler
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=GTK;
+StartupNotify=true
+DBusActivatable=true
