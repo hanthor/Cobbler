@@ -1,2 +1,4 @@
 /subprojects/blueprint-compiler
 Impression_Reference/
+repo/
+*.log
