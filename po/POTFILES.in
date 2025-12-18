@@ -1,0 +1,6 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+data/com.github.hanthor.Cobbler.desktop.in
+data/com.github.hanthor.Cobbler.metainfo.xml.in
+data/com.github.hanthor.Cobbler.gschema.xml
+src/window.blp

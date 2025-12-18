@@ -1,0 +1,99 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $BootcMediaCreatorWindow : Adw.ApplicationWindow {
+  title: "Bootc Media Creator";
+  default-width: 600;
+  default-height: 500;
+
+  Gtk.Stack content_stack {
+    Gtk.StackPage {
+      name: "selection";
+      child: Adw.NavigationView navigation_view {
+         Adw.NavigationPage selection_page {
+           title: "Bootc Media Creator";
+           tag: "selection";
+             child: Adw.ToolbarView {
+               [top]
+               Adw.HeaderBar {}
+
+               content: Gtk.ScrolledWindow {
+                 child: Adw.Clamp {
+                   child: Gtk.Box {
+                     orientation: vertical;
+                     margin-top: 24;
+                     margin-bottom: 24;
+                     margin-start: 12;
+                     margin-end: 12;
+                     spacing: 12;
+
+                     Adw.PreferencesGroup {
+                        title: "Container Image";
+                        Adw.EntryRow image_entry {
+                          title: "Image Reference";
+                          text: "quay.io/centos-bootc/centos-bootc:stream9";
+                        }
+                     }
+
+                     Adw.PreferencesGroup {
+                        title: "Select Drive";
+                        Gtk.ListBox device_list_box {
+                           selection-mode: none;
+                           styles ["boxed-list"]
+                        }
+                     }
+
+                     Gtk.Button flash_button {
+                        label: "Flash";
+                        halign: center;
+                        margin-top: 20;
+                        styles ["suggested-action", "pill"]
+                     }
+                   };
+                 };
+               };
+             };
+         }
+      };
+    }
+
+    Gtk.StackPage {
+      name: "progress";
+      child: Gtk.Box {
+         orientation: vertical;
+         valign: center;
+         halign: center;
+         spacing: 12;
+
+         Adw.StatusPage status_page {
+            title: "Flashing...";
+            description: "Installing bootc image to drive.";
+            icon-name: "system-software-install-symbolic";
+         }
+
+         Gtk.ProgressBar progress_bar {
+            width-request: 300;
+         }
+      };
+    }
+
+    Gtk.StackPage {
+      name: "result";
+      child: Gtk.Box result_box {
+          orientation: vertical;
+          spacing: 12;
+          valign: center;
+          halign: center;
+          
+          Adw.StatusPage result_page {
+             title: "Finished";
+          }
+          Gtk.Button result_button {
+             label: "Done";
+             halign: center;
+             styles ["suggested-action", "pill"]
+          }
+      };
+    }
+  }
+}
